@@ -16,7 +16,8 @@ class Store:
         }
 
     def module_names(self) -> list[str]:
-        return sorted(self._tables)
+        # 以下划线规则结尾的是模块内部配置表（如定级口径），不作为业务模块上概览
+        return sorted(name for name in self._tables if not name.endswith("_rules"))
 
     def rows(self, module: str) -> list[dict[str, Any]]:
         return self._tables.setdefault(module, [])

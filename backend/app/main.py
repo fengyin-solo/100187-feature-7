@@ -34,5 +34,12 @@ def health() -> dict[str, object]:
 
 @app.get("/api/overview")
 def overview() -> dict[str, object]:
-    """运营概览：把各业务模块的待处理量汇总成看板卡片。"""
-    return store.overview()
+    """运营概览：把各业务模块的待处理量汇总成看板卡片。
+
+    严重等级分布直接取安全台账服务的计算结果，和台账页 /api/ledger/distribution 同源。
+    """
+    from app.services.ledger import LedgerService
+
+    data = store.overview()
+    data["severity_distribution"] = LedgerService().severity_distribution()
+    return data

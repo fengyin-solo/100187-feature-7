@@ -19,6 +19,8 @@ class ActionResult(BaseModel):
     ok: bool
     message: str
     entry: dict[str, Any] | None = None
+    # 登记时发现同管段同类缺陷，把候选合并目标带回去供前端提示
+    duplicates: list[dict[str, Any]] | None = None
 
 
 class EntryPayload(BaseModel):
