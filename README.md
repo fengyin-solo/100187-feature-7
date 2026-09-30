@@ -74,3 +74,16 @@ npm run dev
   `backend/app/routers/<模块>.py`，业务规则在 `backend/app/services/<模块>.py`。
 - 列表接口统一返回 `{ items, total, page, size }`，动作接口统一返回 `{ ok, message }`。
 - 状态流转只允许在 `app/services` 里改，路由层不做业务判断。
+
+### 缺陷定级口径
+
+- 定级规则为「缺陷类别 × 影响范围 → 建议严重等级」，支持「不限」通配与兜底，
+  维护接口在 `/api/defect/rules`，规则带版本号。
+- 登记时按当前口径快照建议等级与规则版本；规则调整后只对新登记记录生效，
+  已确认定级的历史记录等级锁定不变。
+- 严重等级到上限（严重）时，确认定级必须填写处置方案；非上限等级填写方案会按
+  冲突拦下，不允许保存。
+- 同一管段重复登记同类未闭环缺陷会返回 `code=DUPLICATE` 与候选记录，
+  可走 `/api/defect/merge` 合并，或带 `force=true` 强制独立登记。
+- 定级结果汇入安全台账（`/api/defect/ledger`，页面在「安全台账」），台账的严重
+  等级分布与运营概览 `/api/overview` 的 `defectSeverity` 取自同一计算口径。

@@ -14,9 +14,11 @@ class Store:
         self._tables: dict[str, list[dict[str, Any]]] = {
             name: [dict(row) for row in rows] for name, rows in SEED_ROWS.items()
         }
+        self._meta: dict[str, dict[str, Any]] = {}
 
     def module_names(self) -> list[str]:
-        return sorted(self._tables)
+        # 下划线开头的是内部配置表（如定级规则），不进运营概览。
+        return sorted(name for name in self._tables if not name.startswith("_"))
 
     def rows(self, module: str) -> list[dict[str, Any]]:
         return self._tables.setdefault(module, [])
@@ -26,6 +28,12 @@ class Store:
             if int(row.get("id", 0)) == entry_id:
                 return row
         return None
+
+    def meta(self, module: str, key: str, *, default: Any = None) -> Any:
+        return self._meta.setdefault(module, {}).get(key, default)
+
+    def set_meta(self, module: str, key: str, value: Any) -> None:
+        self._meta.setdefault(module, {})[key] = value
 
     def overview(self) -> dict[str, object]:
         modules: list[dict[str, object]] = []
@@ -43,7 +51,13 @@ class Store:
             {"label": "待处理", "value": sum(int(item["pending"]) for item in modules)},
             {"label": "异常量", "value": sum(int(item["abnormal"]) for item in modules)},
         ]
-        return {"cards": cards, "modules": modules}
+        result: dict[str, object] = {"cards": cards, "modules": modules}
+        # 缺陷严重等级分布与安全台账共用同一口径，保证两处数字一致。
+        if "defect" in self._tables:
+            from app.services.defect import severity_distribution
+
+            result["defectSeverity"] = severity_distribution()
+        return result
 
 
 store = Store()

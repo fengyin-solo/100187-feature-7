@@ -19,6 +19,11 @@ class ActionResult(BaseModel):
     ok: bool
     message: str
     entry: dict[str, Any] | None = None
+    code: str | None = None
+    candidates: list[dict[str, Any]] | None = None
+    rules: list[dict[str, Any]] | None = None
+    preview: dict[str, Any] | None = None
+    version: int | None = None
 
 
 class EntryPayload(BaseModel):
@@ -26,6 +31,7 @@ class EntryPayload(BaseModel):
 
     values: dict[str, Any] = Field(default_factory=dict)
     remark: str | None = None
+    force: bool = False
 
 
 

@@ -33,3 +33,27 @@ body { margin: 0; background: #f6f8fb; color: #1f2937; }
 .link { border: none; background: none; color: var(--brand); cursor: pointer; padding: 0; }
 .page-foot { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: var(--muted); }
 .error-text { color: #b42318; }
+.ok-text { color: #067647; }
+.danger-text { color: #b42318; }
+.link.danger { color: #b42318; }
+.hint-text { color: var(--muted); font-size: 12px; }
+.block-title { font-size: 15px; margin: 18px 0 8px; }
+
+.modal-mask { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.45); display: flex; align-items: center; justify-content: center; z-index: 20; }
+.modal { background: #fff; border-radius: 10px; padding: 18px 20px; width: 640px; max-height: 88vh; overflow-y: auto; }
+.modal-mask.wide .modal { width: 860px; }
+.modal h3 { margin: 0 0 12px; font-size: 16px; }
+.modal h4 { margin: 14px 0 8px; font-size: 14px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; }
+.form-item span { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+.form-item input, .form-item select, .form-item textarea { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; font: inherit; }
+.form-item.full { grid-column: 1 / -1; }
+.required { color: #b42318; font-style: normal; margin-left: 2px; }
+.suggest-box { margin: 12px 0; padding: 8px 10px; background: #f1f6ff; border-radius: 6px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.dup-box { margin: 8px 0; padding: 8px 10px; background: #fef3c7; border-radius: 6px; font-size: 13px; color: #92400e; }
+.dup-item { display: inline-block; margin: 0 6px; font-weight: 600; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+.merge-badge { display: inline-block; margin-left: 6px; padding: 0 6px; border-radius: 10px; background: #fef3c7; color: #92400e; font-size: 11px; }
+.rule-table th, .rule-table td { font-size: 12px; padding: 6px 8px; }
+select { font: inherit; }
+.btn { text-decoration: none; display: inline-flex; align-items: center; }

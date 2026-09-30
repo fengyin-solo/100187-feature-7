@@ -7,6 +7,7 @@ const Valve = () => import('@/views/valve/index.vue')
 const Pumpstation = () => import('@/views/pumpstation/index.vue')
 const Patrol = () => import('@/views/patrol/index.vue')
 const Defect = () => import('@/views/defect/index.vue')
+const DefectLedger = () => import('@/views/defect/Ledger.vue')
 const Cctv = () => import('@/views/cctv/index.vue')
 const Repair = () => import('@/views/repair/index.vue')
 const Pressure = () => import('@/views/pressure/index.vue')
@@ -30,6 +31,7 @@ const router = createRouter({
     { path: '/pumpstation', name: 'pumpstation', component: Pumpstation },
     { path: '/patrol', name: 'patrol', component: Patrol },
     { path: '/defect', name: 'defect', component: Defect },
+    { path: '/defect-ledger', name: 'defect-ledger', component: DefectLedger },
     { path: '/cctv', name: 'cctv', component: Cctv },
     { path: '/repair', name: 'repair', component: Repair },
     { path: '/pressure', name: 'pressure', component: Pressure },
